@@ -1,0 +1,52 @@
+openapi: 3.1.0
+info:
+  title: Room Reservation Service API
+  description: Room Reservation Service API
+  version: 0.1.0
+paths:
+  /room-reservations/{date}:
+    get:
+      parameters:
+        - in: path
+          name: date
+          schema:
+            type: string
+            format: date
+            example: "2024-10-31"
+          required: true
+      operationId: getRoomReservations
+      tags:
+        - RoomReservations
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type:
+                  - array
+                items:
+                  $ref: "#/components/schemas/roomReservation"
+components:
+  schemas:
+    roomReservation:
+      type: object
+      properties:
+        roomId:
+          type: integer
+          format: int64
+        customerId:
+          type: integer
+          format: int64
+        roomName:
+          type: string
+        roomNumber:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        date:
+          type: string
+          format: date
+          example: "2024-10-31"

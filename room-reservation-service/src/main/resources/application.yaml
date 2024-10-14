@@ -1,0 +1,21 @@
+quarkus:
+  log:
+    category:
+      "sk.janobono":
+        level: DEBUG
+    level: INFO
+
+  http:
+    root-path: /api
+
+"%dev":
+  quarkus:
+    http:
+      port: 8083
+    rest-client:
+      CustomerApiClient:
+        url: http://localhost:8081/api
+      ReservationApiClient:
+        url: http://localhost:8082/api
+      RoomApiClient:
+        url: :http://localhost:8084/api

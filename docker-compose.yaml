@@ -1,0 +1,94 @@
+services:
+  db:
+    image: simple-quarkus-app/mssql:latest
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+      - MSSQL_SA_PASSWORD=Passw0rd!
+      - TZ=Europe/Bratislava
+    volumes:
+      - db-data:/var/opt/mssql
+      - ./setup.sql:/usr/src/app/setup.sql:ro
+
+  customer-service:
+    image: simple-quarkus-app/customer-service:0.1.0
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:sqlserver://db:1433;database=customer;integratedSecurity=false;encrypt=false;trustServerCertificate=true;
+    depends_on:
+      - db
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.customer-service.rule=PathPrefix(`/api/customers`)
+      - traefik.http.routers.customer-service.entrypoints=web
+      - traefik.http.services.customer-service.loadbalancer.server.port=8080
+
+  reservation-service:
+    image: simple-quarkus-app/reservation-service:0.1.0
+    restart: unless-stopped
+    ports:
+      - "8082:8080"
+    environment:
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:sqlserver://db:1433;database=reservation;integratedSecurity=false;encrypt=false;trustServerCertificate=true;
+    depends_on:
+      - db
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.reservation-service.rule=PathPrefix(`/api/reservations`)
+      - traefik.http.routers.reservation-service.entrypoints=web
+      - traefik.http.services.reservation-service.loadbalancer.server.port=8080
+
+  room-service:
+    image: simple-quarkus-app/room-service:0.1.0
+    restart: unless-stopped
+    ports:
+      - "8084:8080"
+    environment:
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:sqlserver://db:1433;database=room;integratedSecurity=false;encrypt=false;trustServerCertificate=true;
+    depends_on:
+      - db
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.room-service.rule=PathPrefix(`/api/rooms`)
+      - traefik.http.routers.room-service.entrypoints=web
+      - traefik.http.services.room-service.loadbalancer.server.port=8080
+
+  room-reservation-service:
+    image: simple-quarkus-app/room-reservation-service:0.1.0
+    restart: unless-stopped
+    ports:
+      - "8083:8080"
+    environment:
+      - QUARKUS_REST_CLIENT__CustomerApiClient__URL=http://customer-service/api
+      - QUARKUS_REST_CLIENT__ReservationApiClient__URL=http://reservation-service/api
+      - QUARKUS_REST_CLIENT__RoomApiClient__URL=http://room-service/api
+    depends_on:
+      - customer-service
+      - reservation-service
+      - room-service
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.room-reservation-service.rule=PathPrefix(`/api/room-reservations`)
+      - traefik.http.routers.room-reservation-service.entrypoints=web
+      - traefik.http.services.room-reservation-service.loadbalancer.server.port=8080
+
+  traefik:
+    image: traefik:v3.2
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+volumes:
+  db-data:

@@ -1,0 +1,24 @@
+quarkus:
+  datasource:
+    db-kind: mssql
+    jdbc:
+      url: jdbc:sqlserver://localhost:1433;database=customer;integratedSecurity=false;encrypt=false;trustServerCertificate=true;
+    username: customer
+    password: customer
+
+  liquibase:
+    migrate-at-start: true
+
+  log:
+    category:
+      "sk.janobono":
+        level: DEBUG
+    level: INFO
+
+  http:
+    root-path: /api
+
+"%dev":
+  quarkus:
+    http:
+      port: 8081

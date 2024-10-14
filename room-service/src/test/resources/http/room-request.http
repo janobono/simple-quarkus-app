@@ -1,0 +1,26 @@
+### Create new
+POST {{url}}/rooms
+Content-Type: application/json
+
+{
+  "name": "HolidayIn",
+  "roomNumber": "A100"
+}
+
+### Modify
+PUT {{url}}/rooms/2
+Content-Type: application/json
+
+{
+  "name": "TopStar",
+  "roomNumber": "B123"
+}
+
+### Get all
+GET {{url}}/rooms
+
+### Get single
+GET {{url}}/rooms/4
+
+### Delete
+DELETE {{url}}/rooms/1

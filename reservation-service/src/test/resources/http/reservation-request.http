@@ -1,0 +1,31 @@
+### Create new
+POST {{url}}/reservations
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "roomId": 1,
+  "date": "2024-10-15"
+}
+
+### Modify
+PUT {{url}}/reservations/2
+Content-Type: application/json
+
+{
+  "customerId": 2,
+  "roomId": 2,
+  "date": "2024-10-16"
+}
+
+### Get all
+GET {{url}}/reservations
+
+### Get all by date
+GET {{url}}/reservations?date="2024-10-15"
+
+### Get single
+GET {{url}}/reservations/4
+
+### Delete
+DELETE {{url}}/reservations/1

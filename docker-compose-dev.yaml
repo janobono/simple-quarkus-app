@@ -1,0 +1,16 @@
+services:
+  db:
+    image: simple-quarkus-app/mssql:latest
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+      - MSSQL_SA_PASSWORD=Passw0rd!
+      - TZ=Europe/Bratislava
+    volumes:
+      - db-data:/var/opt/mssql
+      - ./setup.sql:/usr/src/app/setup.sql:ro
+
+volumes:
+  db-data:

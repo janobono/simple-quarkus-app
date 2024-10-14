@@ -1,0 +1,26 @@
+### Create new
+POST {{url}}/customers
+Content-Type: application/json
+
+{
+  "firstName": "Jack",
+  "lastName": "Daniels"
+}
+
+### Modify
+PUT {{url}}/customers/2
+Content-Type: application/json
+
+{
+  "firstName": "Jimbo",
+  "lastName": "Rocket"
+}
+
+### Get all
+GET {{url}}/customers
+
+### Get single
+GET {{url}}/customers/4
+
+### Delete
+DELETE {{url}}/customers/1
