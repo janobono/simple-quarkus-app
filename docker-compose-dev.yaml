@@ -1,16 +1,16 @@
 services:
   db:
-    image: simple-quarkus-app/mssql:latest
+    image: public.ecr.aws/docker/library/postgres:alpine
     ports:
-      - "1433:1433"
+      - "5432:5432"
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_PID=Developer
-      - MSSQL_SA_PASSWORD=Passw0rd!
+      - POSTGRES_DB=dev
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=dev
       - TZ=Europe/Bratislava
     volumes:
-      - db-data:/var/opt/mssql
-      - ./setup.sql:/usr/src/app/setup.sql:ro
+      - db-data:/var/lib/postgresql/data
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
 
 volumes:
   db-data:

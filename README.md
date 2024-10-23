@@ -14,8 +14,6 @@ mvn clean install
 
 ## Start
 
-Before starting an application you have to build [mssql image](./ms-sql).
-
 ```shell
 docker compose up
 ```

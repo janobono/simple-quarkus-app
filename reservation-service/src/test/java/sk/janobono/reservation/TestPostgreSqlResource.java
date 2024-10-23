@@ -1,15 +1,14 @@
-package sk.janobono.customer;
+package sk.janobono.reservation;
 
 import io.quarkus.test.common.DevServicesContext;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.testcontainers.containers.JdbcDatabaseContainer;
-import org.testcontainers.containers.MSSQLServerContainer;
-import org.testcontainers.shaded.com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
 import java.util.Optional;
+import org.testcontainers.containers.JdbcDatabaseContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.shaded.com.google.common.collect.ImmutableMap;
 
-public class TestMsSqlResource implements QuarkusTestResourceLifecycleManager, DevServicesContext.ContextAware {
+public class TestPostgreSqlResource implements QuarkusTestResourceLifecycleManager, DevServicesContext.ContextAware {
 
     private Optional<String> containerNetworkId = Optional.empty();
     private JdbcDatabaseContainer container;
@@ -22,7 +21,7 @@ public class TestMsSqlResource implements QuarkusTestResourceLifecycleManager, D
     @Override
     public Map<String, String> start() {
         // start a container making sure to call withNetworkMode() with the value of containerNetworkId if present
-        container = new MSSQLServerContainer("mcr.microsoft.com/mssql/server:2022-latest").acceptLicense();
+        container = new PostgreSQLContainer("postgres:alpine");
 
         // apply the network to the container
         containerNetworkId.ifPresent(container::withNetworkMode);
@@ -39,17 +38,17 @@ public class TestMsSqlResource implements QuarkusTestResourceLifecycleManager, D
 
         // return a map containing the configuration the application needs to use the service
         return ImmutableMap.of(
-                "quarkus.datasource.username", container.getUsername(),
-                "quarkus.datasource.password", container.getPassword(),
-                "quarkus.datasource.jdbc.url", jdbcUrl
+            "quarkus.datasource.username", container.getUsername(),
+            "quarkus.datasource.password", container.getPassword(),
+            "quarkus.datasource.jdbc.url", jdbcUrl
         );
     }
 
     private String fixJdbcUrl(final String jdbcUrl) {
         // Part of the JDBC URL to replace
-        final String hostPort = container.getHost() + ':' + container.getMappedPort(MSSQLServerContainer.MS_SQL_SERVER_PORT);
+        final String hostPort = container.getHost() + ':' + container.getMappedPort(PostgreSQLContainer.POSTGRESQL_PORT);
         // Host/IP on the container network plus the unmapped port
-        final String networkHostPort = container.getCurrentContainerInfo().getConfig().getHostName() + ':' + MSSQLServerContainer.MS_SQL_SERVER_PORT;
+        final String networkHostPort = container.getCurrentContainerInfo().getConfig().getHostName() + ':' + PostgreSQLContainer.POSTGRESQL_PORT;
 
         return jdbcUrl.replace(hostPort, networkHostPort);
     }

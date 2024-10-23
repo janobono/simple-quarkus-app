@@ -1,10 +1,10 @@
 quarkus:
   datasource:
-    db-kind: mssql
+    db-kind: postgresql
     jdbc:
-      url: jdbc:sqlserver://localhost:1433;database=reservation;integratedSecurity=false;encrypt=false;trustServerCertificate=true;
-    username: reservation
-    password: reservation
+      url: jdbc:postgresql://localhost:5432/dev?currentSchema=reservation
+    username: dev
+    password: dev
 
   liquibase:
     migrate-at-start: true

@@ -18,4 +18,4 @@ quarkus:
       ReservationApiClient:
         url: http://localhost:8082/api
       RoomApiClient:
-        url: :http://localhost:8084/api
+        url: http://localhost:8084/api
