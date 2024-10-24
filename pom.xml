@@ -116,7 +116,8 @@
                     <version>${surefire-plugin.version}</version>
                     <configuration>
                         <systemPropertyVariables>
-                            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                            <java.util.logging.manager>org.jboss.logmanager.LogManager
+                            </java.util.logging.manager>
                             <maven.home>${maven.home}</maven.home>
                         </systemPropertyVariables>
                     </configuration>
@@ -134,9 +135,11 @@
                     </executions>
                     <configuration>
                         <systemPropertyVariables>
-                            <native.image.path>${project.build.directory}/${project.build.finalName}-runner
+                            <native.image.path>
+                                ${project.build.directory}/${project.build.finalName}-runner
                             </native.image.path>
-                            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                            <java.util.logging.manager>org.jboss.logmanager.LogManager
+                            </java.util.logging.manager>
                             <maven.home>${maven.home}</maven.home>
                         </systemPropertyVariables>
                     </configuration>
@@ -164,7 +167,8 @@
                                     <argument>-f</argument>
                                     <argument>src/main/docker/Dockerfile.jvm</argument>
                                     <argument>-t</argument>
-                                    <argument>${project.parent.artifactId}/${project.artifactId}:${project.version}
+                                    <argument>
+                                        ${project.parent.artifactId}/${project.artifactId}:${project.version}
                                     </argument>
                                     <argument>.</argument>
                                 </arguments>
@@ -182,5 +186,6 @@
         <module>reservation-service</module>
         <module>room-reservation-service</module>
         <module>room-service</module>
+        <module>simple-quarkus-app-gui</module>
     </modules>
 </project>

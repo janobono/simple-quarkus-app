@@ -1,0 +1,1 @@
+# simple-quarkus-app-gui
