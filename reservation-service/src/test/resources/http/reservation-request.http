@@ -22,10 +22,10 @@ Content-Type: application/json
 GET {{url}}/reservations
 
 ### Get all by date
-GET {{url}}/reservations?date="2024-10-15"
+GET {{url}}/reservations?date=2024-10-25
 
 ### Get single
-GET {{url}}/reservations/4
+GET {{url}}/reservations/1
 
 ### Delete
 DELETE {{url}}/reservations/1

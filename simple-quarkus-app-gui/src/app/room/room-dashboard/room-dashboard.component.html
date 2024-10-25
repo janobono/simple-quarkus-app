@@ -1,0 +1,18 @@
+<section id="rooms">
+  <header>
+    <h2>
+      Rooms
+    </h2>
+    <menu>
+      <button (click)="onAddRoom()">Add Room</button>
+    </menu>
+  </header>
+
+  <ul>
+    @for (room of rooms(); track room.id) {
+      <li>
+        <app-room [room]="room"/>
+      </li>
+    }
+  </ul>
+</section>

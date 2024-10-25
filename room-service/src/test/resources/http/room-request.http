@@ -20,7 +20,7 @@ Content-Type: application/json
 GET {{url}}/rooms
 
 ### Get single
-GET {{url}}/rooms/4
+GET {{url}}/rooms/2
 
 ### Delete
 DELETE {{url}}/rooms/1

@@ -20,7 +20,7 @@ Content-Type: application/json
 GET {{url}}/customers
 
 ### Get single
-GET {{url}}/customers/4
+GET {{url}}/customers/1
 
 ### Delete
 DELETE {{url}}/customers/1

@@ -1,0 +1,7 @@
+<app-card>
+  <article>
+    <h2>{{ "Reservation id:" + reservation().id }}</h2>
+    <time>{{ reservation().date | date:'fullDate' }}</time>
+    <p>{{ "room id:" + reservation().roomId + ", customer id:" + reservation().customerId }}</p>
+  </article>
+</app-card>

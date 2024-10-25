@@ -1,0 +1,18 @@
+<section id="reservations">
+  <header>
+    <h2>
+      Reservations
+    </h2>
+    <menu>
+      <button (click)="onAddReservation()">Add Reservation</button>
+    </menu>
+  </header>
+
+  <ul>
+    @for (reservation of reservations(); track reservation.id) {
+      <li>
+        <app-reservation [reservation]="reservation"/>
+      </li>
+    }
+  </ul>
+</section>

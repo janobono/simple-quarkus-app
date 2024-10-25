@@ -1,0 +1,19 @@
+<section id="room-reservations">
+  <header>
+    <h2>
+      Room Reservations
+    </h2>
+    <p>
+      <label for="date">Date</label>
+      <input type="date" id="date" name="date" [(ngModel)]="date"/>
+    </p>
+  </header>
+
+  <ul>
+    @for (roomReservation of roomReservations(); track $index) {
+      <li>
+        <app-room-reservation [roomReservation]="roomReservation"/>
+      </li>
+    }
+  </ul>
+</section>

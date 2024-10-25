@@ -1,0 +1,18 @@
+<section id="customers">
+  <header>
+    <h2>
+      Customers
+    </h2>
+    <menu>
+      <button (click)="onAddCustomer()">Add Customer</button>
+    </menu>
+  </header>
+
+  <ul>
+    @for (customer of customers(); track customer.id) {
+      <li>
+        <app-customer [customer]="customer"/>
+      </li>
+    }
+  </ul>
+</section>

@@ -63,9 +63,9 @@ services:
     ports:
       - "8083:8080"
     environment:
-      - QUARKUS_REST_CLIENT__CustomerApiClient__URL=http://customer-service/api
-      - QUARKUS_REST_CLIENT__ReservationApiClient__URL=http://reservation-service/api
-      - QUARKUS_REST_CLIENT__RoomApiClient__URL=http://room-service/api
+      - QUARKUS_REST_CLIENT__CustomerApiClient__URL=http://customer-service:8080/api
+      - QUARKUS_REST_CLIENT__ReservationApiClient__URL=http://reservation-service:8080/api
+      - QUARKUS_REST_CLIENT__RoomApiClient__URL=http://room-service:8080/api
     depends_on:
       - customer-service
       - reservation-service

@@ -1,0 +1,18 @@
+{
+  "/api/customers*": {
+    "target": "http://localhost:8081",
+    "secure": false
+  },
+  "/api/reservations*": {
+    "target": "http://localhost:8082",
+    "secure": false
+  },
+  "/api/room-reservations/*": {
+    "target": "http://localhost:8083",
+    "secure": false
+  },
+  "/api/rooms*": {
+    "target": "http://localhost:8084",
+    "secure": false
+  }
+}

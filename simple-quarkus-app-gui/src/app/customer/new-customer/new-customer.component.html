@@ -1,0 +1,20 @@
+<div class="backdrop" (click)="onCancel()"></div>
+<dialog open>
+  <h2>Add Customer</h2>
+  <form (ngSubmit)="onSubmit()">
+    <p>
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName"/>
+    </p>
+
+    <p>
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="firstName" [(ngModel)]="lastName"/>
+    </p>
+
+    <p class="actions">
+      <button type="button" (click)="onCancel()">Cancel</button>
+      <button type="submit">Submit</button>
+    </p>
+  </form>
+</dialog>
