@@ -47,15 +47,9 @@ public class ReservationService {
     public void deleteReservation(final Long id) {
         log.debug("deleteReservation({})", id);
 
-        // Workaround - delete doesn't return correct flag
-        if (reservationRepository.findByIdOptional(id).isEmpty()) {
+        if (!reservationRepository.deleteById(id)) {
             throw new NotFoundException("Reservation with id [%d] not found".formatted(id));
         }
-        reservationRepository.deleteById(id);
-
-//        if (reservationRepository.deleteById(id)) {
-//            throw new NotFoundException("Reservation with id [%d] not found".formatted(id));
-//        }
     }
 
     public ReservationData getReservation(final Long id) {

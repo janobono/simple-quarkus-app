@@ -45,15 +45,9 @@ public class RoomService {
     public void deleteRoom(final Long id) {
         log.debug("deleteRoom({})", id);
 
-        // Workaround - delete doesn't return correct flag
-        if (roomRepository.findByIdOptional(id).isEmpty()) {
+        if (!roomRepository.deleteById(id)) {
             throw new NotFoundException("Room with id [%d] not found".formatted(id));
         }
-        roomRepository.deleteById(id);
-
-//        if (roomRepository.deleteById(id)) {
-//            throw new NotFoundException("Room with id [%d] not found".formatted(id));
-//        }
     }
 
     public RoomData getRoom(final Long id) {

@@ -45,15 +45,9 @@ public class CustomerService {
     public void deleteCustomer(final Long id) {
         log.debug("deleteCustomer({})", id);
 
-        // Workaround - delete doesn't return correct flag
-        if (customerRepository.findByIdOptional(id).isEmpty()) {
+        if (!customerRepository.deleteById(id)) {
             throw new NotFoundException("Customer with id [%d] not found".formatted(id));
         }
-        customerRepository.deleteById(id);
-
-//        if (customerRepository.deleteById(id)) {
-//            throw new NotFoundException("Customer with id [%d] not found".formatted(id));
-//        }
     }
 
     public CustomerData getCustomer(final Long id) {
